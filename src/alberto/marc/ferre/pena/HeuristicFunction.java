@@ -1,7 +1,5 @@
 package alberto.marc.ferre.pena;
 
-import static java.lang.Math.max;
-
 /**
  * Created by sunlock on 23/03/16.
  */
@@ -12,17 +10,18 @@ public class HeuristicFunction implements aima.search.framework.HeuristicFunctio
     {
         Representation rep = (Representation) state;
 
-        int maxTransmissionTime = 0;
-        int sumTransmissionTime = 0;
+        double mean = 0;
+        double variancy = 0;
 
         for (int i = 0; i < rep.serverLoad.size(); ++i) {
-            int ttsi = rep.serverLoad.get(i);
-
-            maxTransmissionTime = max(maxTransmissionTime, ttsi);
-            sumTransmissionTime += (ttsi*ttsi);
+            mean += rep.serverLoad.get(i);
+        }
+        mean = mean / rep.serverLoad.size();
+        for (int j = 0; j < rep.serverLoad.size();++j) {
+            variancy += Math.pow(rep.serverLoad.get(j) - mean,2);
         }
 
-        return sumTransmissionTime / (maxTransmissionTime / rep.serverLoad.size());
+        return variancy/rep.serverLoad.size();
 
     }
 }
