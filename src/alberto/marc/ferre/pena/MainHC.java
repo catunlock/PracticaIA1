@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-public class Main {
+public class MainHC {
 
     public static final int USERS_REQUESTS = 10;
     public static final int MAXIMUN_REQUESTS_PER_USER = 3;
@@ -47,7 +47,7 @@ public class Main {
 
             System.out.printf(rep.toString());
 
-            Problem problem = new Problem(rep, new SuccessorFunction(), new GoalTest(), new HeuristicFunction());
+            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunction());
 
             HillClimbingSearch search = new HillClimbingSearch();
 

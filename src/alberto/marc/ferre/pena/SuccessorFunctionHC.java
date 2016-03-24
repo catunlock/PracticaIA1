@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by sunlock on 23/03/16.
  */
-public class SuccessorFunction implements aima.search.framework.SuccessorFunction {
+public class SuccessorFunctionHC implements aima.search.framework.SuccessorFunction {
 
     @Override
     public List getSuccessors(Object state) {

@@ -108,21 +108,26 @@ public class Representation {
         incrementTransmissionTime(s2,r);
     }
 
-    public Representation(Representation r) {
-        requestsDist = r.requestsDist;
-        serversDist = r.serversDist;
+    public Representation(Representation rep) {
+        requestsDist = rep.requestsDist;
+        serversDist = rep.serversDist;
 
-        servers = new ArrayList<>(r.servers.size());
-        serverLoad = new ArrayList<>(serversDist.size());
+        servers = new ArrayList<>(rep.servers.size());
+        serverLoad = new ArrayList<>(rep.serverLoad.size());
 
-        for (int i = 0; i < r.servers.size(); ++i) {
-            servers.add(r.servers.get(i));
-            servers.get(i).files = new TreeSet<>();
+        for (int i = 0; i < rep.servers.size(); ++i)
+        {
+            Server serv = new Server();
+            serv.files = new TreeSet<>();
 
-            for (Request req : r.servers.get(i).files) {
-                servers.get(i).files.add(new Request(req));
+            TreeSet<Request> requests = rep.servers.get(i).files;
+
+            for (Request req : requests) {
+                serv.files.add(new Request(req));
             }
-            serverLoad.add(r.serverLoad.get(i));
+
+            servers.add(serv);
+            serverLoad.add(rep.serverLoad.get(i));
         }
     }
 
