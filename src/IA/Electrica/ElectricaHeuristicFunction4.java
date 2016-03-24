@@ -1,0 +1,16 @@
+package IA.Electrica;
+
+import aima.search.framework.HeuristicFunction;
+
+public class ElectricaHeuristicFunction4 implements HeuristicFunction
+{
+//	 energica m�s barates pel consumdior
+	 	  
+	public double getHeuristicValue(Object state) 
+	{
+	   Electrica board= (Electrica) state;
+	   return (board.obteValHeuristic(4));
+	}
+	 	  
+
+}
