@@ -1,4 +1,4 @@
-package alberto.marc.ferre.pena;
+package alberto.marc.ferre.pena.RepresentationOne;
 
 import aima.search.framework.Successor;
 
