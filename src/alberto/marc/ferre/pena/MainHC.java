@@ -11,13 +11,21 @@ import java.util.List;
 import java.util.Properties;
 
 public class MainHC {
-
+/*
     public static final int USERS_REQUESTS = 10;
     public static final int MAXIMUN_REQUESTS_PER_USER = 3;
     public static final int SEED = 1;
 
     public static final int NUMBER_OF_SERVERS = 4;
     public static final int MINIMUM_REPLICATIONS = 1;
+*/
+
+    public static final int USERS_REQUESTS = 200;
+    public static final int MAXIMUN_REQUESTS_PER_USER = 5;
+    public static final int SEED = 1;
+
+    public static final int NUMBER_OF_SERVERS = 50;
+    public static final int MINIMUM_REPLICATIONS = 5;
 
     private static void printInstrumentation(Properties properties) {
         Iterator keys = properties.keySet().iterator();
@@ -43,7 +51,7 @@ public class MainHC {
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
             Representation rep = new Representation(NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState();
+            rep.generateInitialState2();
 
             System.out.printf(rep.toString());
 

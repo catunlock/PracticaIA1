@@ -60,11 +60,51 @@ public class Representation {
         }
     }
 
+    public void generateInitialState2() {
+        for(int i = 0; i < requestsDist.size(); ++i)
+        {
+            int[] req = requestsDist.getRequest(i);
+            int userId = req[0];
+            int fileId = req[1];
+
+            Set<Integer> serversId = serversDist.fileLocations(fileId);
+            Iterator<Integer> it = serversId.iterator();
+            int minPing, minSId;
+
+            if (it.hasNext()) {
+                int sId = it.next();
+                minPing = serverLoad.get(sId);
+                minSId = sId;
+
+                while (it.hasNext()) { // Never will be empty.
+                    sId = it.next();
+                    if (minPing > serverLoad.get(sId)) {
+                        minPing = serverLoad.get(sId);
+                        minSId = sId;
+                    }
+
+                }
+
+                servers.get(minSId).files.add(new Request(userId,fileId));
+
+                int prevLoad = serverLoad.get(minSId);
+                int transTime = serversDist.tranmissionTime(minSId, userId);
+                serverLoad.set(minSId, prevLoad + transTime);
+            }
+        }
+    }
+
     private void decrementTransmissionTime(int serverId, Request r) {
         int previousLoad = serverLoad.get(serverId);
         int ping = serversDist.tranmissionTime(serverId, r.userId);
 
         serverLoad.set(serverId, previousLoad - ping);
+        /*
+        if (serverId == 48) {
+            System.out.println("Decrementing " + serverId + " With " + previousLoad + " in " + ping + " = " + serverLoad.get(serverId) );
+        }
+        */
+
     }
 
     private void incrementTransmissionTime(int serverId, Request r) {
@@ -72,6 +112,11 @@ public class Representation {
         int ping = serversDist.tranmissionTime(serverId, r.userId);
 
         serverLoad.set(serverId, previousLoad + ping);
+        /*
+        if (serverId == 48) {
+            System.out.println("Incrementing " + serverId + " With " + previousLoad + " in " + ping + " = " + serverLoad.get(serverId));
+        }
+        */
     }
 
 
