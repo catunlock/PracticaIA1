@@ -4,8 +4,8 @@ package alberto.marc.ferre.pena.RepresentationOne;
  * Created by sunlock on 24/03/16.
  */
 public class Request implements Comparable<Request>{
-    int userId;
-    int fileId;
+    public int userId;
+    public int fileId;
 
     public Request(int userId, int fileId) {
         this.userId = userId;

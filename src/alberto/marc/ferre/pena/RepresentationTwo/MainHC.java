@@ -1,15 +1,19 @@
-package alberto.marc.ferre.pena.RepresentationOne;
+package alberto.marc.ferre.pena.RepresentationTwo;
 
 import IA.DistFS.Requests;
 import IA.DistFS.Servers;
 import aima.search.framework.Problem;
 import aima.search.framework.SearchAgent;
 import aima.search.informed.HillClimbingSearch;
+import alberto.marc.ferre.pena.RepresentationOne.GoalTest;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * Created by sunlock on 25/03/16.
+ */
 public class MainHC {
 
     public static final int USERS_REQUESTS = 10;
@@ -51,7 +55,7 @@ public class MainHC {
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
             Representation rep = new Representation(NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState2();
+            rep.generateInitialState();
 
             System.out.printf(rep.toString());
 
