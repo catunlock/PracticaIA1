@@ -46,6 +46,7 @@ public class MainHC {
 
     public static void main(String[] args)
     {
+        long tStart = System.currentTimeMillis();
         try {
             Requests requestsDist = new Requests(USERS_REQUESTS, MAXIMUN_REQUESTS_PER_USER,SEED);
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
@@ -69,6 +70,10 @@ public class MainHC {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        long tEnd = System.currentTimeMillis();
+
+        System.out.println("Elapsed time: " + (tEnd - tStart) + "ms.");
 
     }
 }
