@@ -14,19 +14,25 @@ import java.util.Properties;
  * Created by sunlock on 24/03/16.
  */
 public class MainSA {
+    public static final int USERS_REQUESTS = 200;
+    public static final int MAXIMUN_REQUESTS_PER_USER = 5;
+    public static final int SEED = 1;
 
+    public static final int NUMBER_OF_SERVERS = 50;
+    public static final int MINIMUM_REPLICATIONS = 5;
+    /*
     public static final int USERS_REQUESTS = 10;
     public static final int MAXIMUN_REQUESTS_PER_USER = 3;
     public static final int SEED = 1;
 
     public static final int NUMBER_OF_SERVERS = 4;
     public static final int MINIMUM_REPLICATIONS = 1;
-
+    */
     // SIMULATING ANNEALING Variables
-    public static final int STEPS = 1000;
-    public static final int STITER = 100;
-    public static final int K = 100;
-    public static final int LAMB = 100;
+    public static final int STEPS = 1000000;
+    public static final int STITER = 100000;
+    public static final int K = 100000;
+    public static final int LAMB = 10;
 
     public static void main(String[] args)
     {
@@ -39,7 +45,7 @@ public class MainSA {
 
             System.out.printf(rep.toString());
 
-            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunction());
+            Problem problem = new Problem(rep, new SuccessorFunctionSA(), new GoalTest(), new HeuristicFunction());
 
             SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(STEPS, STITER, K, LAMB);
 
