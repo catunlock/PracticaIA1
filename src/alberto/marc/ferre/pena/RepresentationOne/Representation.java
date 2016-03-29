@@ -191,6 +191,14 @@ public class Representation {
         }
     }
 
+    public int getTotalTransmitionTime() {
+        int ttt = 0;
+        for (int i = 0; i < serverLoad.size(); ++i) {
+            ttt += serverLoad.get(i);
+        }
+        return ttt;
+    }
+
 
 
 }
