@@ -1,4 +1,4 @@
-package alberto.marc.ferre.pena.RepresentationOne;
+package alberto.marc.ferre.pena.RepresentationThree;
 
 import IA.DistFS.Requests;
 import IA.DistFS.Servers;
@@ -9,6 +9,7 @@ import aima.search.informed.HillClimbingSearch;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 public class MainHC {
 /*
@@ -47,12 +48,13 @@ public class MainHC {
     public static void main(String[] args)
     {
         long tStart = System.currentTimeMillis();
+        Random rand = new Random(1234);
         try {
             Requests requestsDist = new Requests(USERS_REQUESTS, MAXIMUN_REQUESTS_PER_USER,SEED);
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
-            Representation rep = new Representation(NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState2();
+            Representation rep = new Representation(rand, NUMBER_OF_SERVERS, requestsDist, serversDist);
+            rep.generateInitialState();
 
             System.out.printf(rep.toString());
 
