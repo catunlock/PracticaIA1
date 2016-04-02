@@ -14,14 +14,13 @@ public class HeuristicFunctionOne implements aima.search.framework.HeuristicFunc
     @Override
     public double getHeuristicValue(Object state) {
         Representation rep = (Representation) state;
-        
-        int maxTime = 0;
-        
-        for (Integer load : rep.serverLoad) {
-            maxTime = Math.max(maxTime,load);
+
+        int totalTime = 0;
+        for (int time : rep.serverLoad) {
+            totalTime += time;
         }
-        
-        return maxTime;
+
+        return totalTime;
     }
     
 }

@@ -118,6 +118,7 @@ public class Representation {
 
         int previousLoad = serverLoad.get(serverId);
         int ping = serversDist.tranmissionTime(serverId, userId);
+        System.out.println("Decrement " + serverId + " in " + ping);
 
         serverLoad.set(serverId, previousLoad - ping);
     }
@@ -128,6 +129,7 @@ public class Representation {
 
         int previousLoad = serverLoad.get(serverId);
         int ping = serversDist.tranmissionTime(serverId, userId);
+        System.out.println("Increment " + serverId + " in " + ping);
 
         serverLoad.set(serverId, previousLoad + ping);
     }
@@ -141,9 +143,18 @@ public class Representation {
 
     public void move(int request, int servDest) {
         int servOrigin = requests.get(request);
+        int userId = requestsDist.getRequest(request)[0];
+        int serverLoadOrigin = this.serverLoad.get(servOrigin);
+        int serverLoadDest   = this.serverLoad.get(servDest);
 
-        decrementTransmissionTime(servOrigin, request);
-        incrementTransmissionTime(servDest, request);
+        int prevTime = serversDist.tranmissionTime(servOrigin, userId);
+        int newTime =  serversDist.tranmissionTime(servDest, userId);
+
+        serverLoadOrigin -= prevTime;
+        serverLoadDest += newTime;
+
+        this.serverLoad.set(servOrigin, serverLoadOrigin);
+        this.serverLoad.set(servDest, serverLoadDest);
     }
 
     public Representation(Representation rep) {

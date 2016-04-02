@@ -48,7 +48,7 @@ public class MainSA {
 
             System.out.printf(rep.toString());
 
-            Problem problem = new Problem(rep, new SuccessorFunctionSA(), new GoalTest(), new HeuristicFunctionTwo());
+            Problem problem = new Problem(rep, new SuccessorFunctionSA(), new GoalTest(), new HeuristicFunctionOne());
 
             SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(STEPS, STITER, K, LAMB);
 

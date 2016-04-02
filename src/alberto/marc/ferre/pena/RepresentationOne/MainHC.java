@@ -52,7 +52,7 @@ public class MainHC {
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
             Representation rep = new Representation(NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState2();
+            rep.generateInitialState();
 
             System.out.printf(rep.toString());
 
