@@ -1,9 +1,9 @@
-package alberto.marc.ferre.pena.RepresentationOne;
+package alberto.marc.ferre.pena.RepresentationThree;
 
 /**
  * Created by sunlock on 23/03/16.
  */
-public class HeuristicFunction implements aima.search.framework.HeuristicFunction {
+public class HeuristicFunctionTwo implements aima.search.framework.HeuristicFunction {
 
     @Override
     public double getHeuristicValue(Object state)

@@ -1,4 +1,4 @@
-package alberto.marc.ferre.pena.RepresentationOne;
+package alberto.marc.ferre.pena.RepresentationThree;
 
 import IA.DistFS.Requests;
 import IA.DistFS.Servers;
@@ -21,12 +21,12 @@ public class MainHC {
     public static final int MINIMUM_REPLICATIONS = 1;
 */
 
-    public static  int USERS_REQUESTS = 200;
-    public static  int MAXIMUN_REQUESTS_PER_USER = 5;
-    public static  int SEED = 1;
+    public static final int USERS_REQUESTS = 200;
+    public static final int MAXIMUN_REQUESTS_PER_USER = 5;
+    public static final int SEED = 1;
 
-    public static  int NUMBER_OF_SERVERS = 50;
-    public static  int MINIMUM_REPLICATIONS = 5;
+    public static final int NUMBER_OF_SERVERS = 50;
+    public static final int MINIMUM_REPLICATIONS = 5;
 
     private static void printInstrumentation(Properties properties) {
         Iterator keys = properties.keySet().iterator();
@@ -45,29 +45,20 @@ public class MainHC {
         }
     }
 
-    private static void generateRandomScenario () {
-        Random r = new Random(SEED);
-        USERS_REQUESTS = r.nextInt(200);
-        MAXIMUN_REQUESTS_PER_USER = r.nextInt(20);
-        NUMBER_OF_SERVERS = r.nextInt(50);
-        MINIMUM_REPLICATIONS = r.nextInt(NUMBER_OF_SERVERS/2);
-    }
-
     public static void main(String[] args)
     {
         long tStart = System.currentTimeMillis();
-        int ttt= 0;
+        Random rand = new Random(1234);
         try {
-            //generateRandomScenario();
             Requests requestsDist = new Requests(USERS_REQUESTS, MAXIMUN_REQUESTS_PER_USER,SEED);
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
-            Representation rep = new Representation(NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState();
+            Representation rep = new Representation(rand, NUMBER_OF_SERVERS, requestsDist, serversDist);
+            rep.generateInitialState2();
 
             System.out.printf(rep.toString());
 
-            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionTwo());
+            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionOne());
 
             HillClimbingSearch search = new HillClimbingSearch();
 
@@ -75,7 +66,7 @@ public class MainHC {
 
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
-            ttt = rep.getTotalTransmitionTime();
+
         } catch (Servers.WrongParametersException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -85,7 +76,6 @@ public class MainHC {
         long tEnd = System.currentTimeMillis();
 
         System.out.println("Elapsed time: " + (tEnd - tStart) + "ms.");
-        System.out.println("Total transmission time: " + ttt +"ms.");
 
     }
 }
