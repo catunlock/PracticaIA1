@@ -9,17 +9,17 @@ import aima.search.informed.SimulatedAnnealingSearch;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
+
 /**
  * Created by sunlock on 24/03/16.
  */
 public class MainSA {
-    public static  int USERS_REQUESTS = 200;
-    public static  int MAXIMUN_REQUESTS_PER_USER = 5;
-    public static  int SEED = 1234;
+    public static final int USERS_REQUESTS = 200;
+    public static final int MAXIMUN_REQUESTS_PER_USER = 5;
+    public static final int SEED = 1;
 
-    public static int NUMBER_OF_SERVERS = 50;
-    public static  int MINIMUM_REPLICATIONS = 5;
+    public static final int NUMBER_OF_SERVERS = 50;
+    public static final int MINIMUM_REPLICATIONS = 5;
     /*
     public static final int USERS_REQUESTS = 10;
     public static final int MAXIMUN_REQUESTS_PER_USER = 3;
@@ -38,7 +38,6 @@ public class MainSA {
     {
         long tStart = System.currentTimeMillis();
         try {
-
             Requests requestsDist = new Requests(USERS_REQUESTS, MAXIMUN_REQUESTS_PER_USER,SEED);
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
@@ -68,13 +67,6 @@ public class MainSA {
 
     }
 
-    private static void generateRandomScenario () {
-        Random r = new Random(SEED);
-        USERS_REQUESTS = r.nextInt(600);
-        MAXIMUN_REQUESTS_PER_USER = r.nextInt(100);
-        NUMBER_OF_SERVERS = r.nextInt(1000);
-        MINIMUM_REPLICATIONS = r.nextInt(NUMBER_OF_SERVERS/2);
-    }
     private static void printInstrumentation(Properties properties) {
         Iterator keys = properties.keySet().iterator();
         while (keys.hasNext()) {
