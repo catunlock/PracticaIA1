@@ -23,7 +23,7 @@ public class MainHC {
 
     public static final int USERS_REQUESTS = 200;
     public static final int MAXIMUN_REQUESTS_PER_USER = 5;
-    public static final int SEED = 1;
+    public static final int SEED = 1234;
 
     public static final int NUMBER_OF_SERVERS = 50;
     public static final int MINIMUM_REPLICATIONS = 5;
@@ -48,13 +48,13 @@ public class MainHC {
     public static void main(String[] args)
     {
         long tStart = System.currentTimeMillis();
-        Random rand = new Random(1234);
+        Random rand = new Random(SEED);
         try {
             Requests requestsDist = new Requests(USERS_REQUESTS, MAXIMUN_REQUESTS_PER_USER,SEED);
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
             Representation rep = new Representation(rand, NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState2();
+            rep.generateInitialState();
 
             System.out.printf(rep.toString());
 

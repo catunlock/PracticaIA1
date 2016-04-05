@@ -44,7 +44,7 @@ public class MainSA {
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
             Representation rep = new Representation(rand, NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState3();
+            rep.generateInitialState();
 
             System.out.printf(rep.toString());
 

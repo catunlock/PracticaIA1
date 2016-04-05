@@ -14,13 +14,7 @@ public class HeuristicFunctionOne implements aima.search.framework.HeuristicFunc
     @Override
     public double getHeuristicValue(Object state) {
         Representation rep = (Representation) state;
-
-        int totalTime = 0;
-        for (int time : rep.serverLoad) {
-            totalTime += time;
-        }
-
-        return totalTime;
+        return rep.totalTransmissionTime;
     }
     
 }

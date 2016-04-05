@@ -19,6 +19,7 @@ public class Representation {
     ArrayList<Integer> serverLoad;
     Random rand;
     int nservers;
+    int totalTransmissionTime;
 
     @Override
     public String toString() {
@@ -28,6 +29,7 @@ public class Representation {
             sb.append("SERVER " + i + ": " + serverLoad.get(i) + "ms\n");
         }
 
+        sb.append("\n Sum of transmission time: " + totalTransmissionTime);
         return sb.toString();
     }
 
@@ -47,6 +49,7 @@ public class Representation {
 
                 int prevLoad = serverLoad.get(sId);
                 int transTime = serversDist.tranmissionTime(sId, userId);
+                totalTransmissionTime += transTime;
                 serverLoad.set(sId, prevLoad + transTime);
             }
         }
@@ -71,12 +74,11 @@ public class Representation {
 
             int prevLoad = serverLoad.get(sId);
             int transTime = serversDist.tranmissionTime(sId, userId);
+            totalTransmissionTime += transTime;
             serverLoad.set(sId, prevLoad + transTime);
 
         }
     }
-
-
 
     public void generateInitialState2() {
         for(int i = 0; i < requestsDist.size(); ++i)
@@ -107,6 +109,7 @@ public class Representation {
 
                 int prevLoad = serverLoad.get(minSId);
                 int transTime = serversDist.tranmissionTime(minSId, userId);
+                totalTransmissionTime += transTime;
                 serverLoad.set(minSId, prevLoad + transTime);
             }
         }
@@ -143,7 +146,11 @@ public class Representation {
 
     public void move(int request, int servDest) {
         int servOrigin = requests.get(request);
+        requests.set(request, servDest);
+
         int userId = requestsDist.getRequest(request)[0];
+
+
         int serverLoadOrigin = this.serverLoad.get(servOrigin);
         int serverLoadDest   = this.serverLoad.get(servDest);
 
@@ -151,7 +158,9 @@ public class Representation {
         int newTime =  serversDist.tranmissionTime(servDest, userId);
 
         serverLoadOrigin -= prevTime;
+        totalTransmissionTime -= prevTime;
         serverLoadDest += newTime;
+        totalTransmissionTime += newTime;
 
         this.serverLoad.set(servOrigin, serverLoadOrigin);
         this.serverLoad.set(servDest, serverLoadDest);
@@ -162,6 +171,7 @@ public class Representation {
         serversDist = rep.serversDist;
         rand = rep.rand;
         this.nservers = rep.nservers;
+        this.totalTransmissionTime = rep.totalTransmissionTime;
 
         requests = new ArrayList<>(rep.requests.size());
         serverLoad = new ArrayList<>(rep.serverLoad.size());
@@ -181,6 +191,7 @@ public class Representation {
         this.serversDist = serversDist;
         this.rand = rand;
         this.nservers = nservers;
+        this.totalTransmissionTime = 0;
 
         this.requests = new ArrayList<>(requestsDist.size());
         this.serverLoad = new ArrayList<>(nservers);
