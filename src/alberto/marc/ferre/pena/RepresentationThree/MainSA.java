@@ -6,6 +6,10 @@ import aima.search.framework.Problem;
 import aima.search.framework.SearchAgent;
 import aima.search.informed.SimulatedAnnealingSearch;
 
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -17,45 +21,48 @@ import java.util.Random;
 public class MainSA {
     public static final int USERS_REQUESTS = 200;
     public static final int MAXIMUN_REQUESTS_PER_USER = 5;
-    public static final int SEED = 1;
+    public static final int SEED = 1234;
 
     public static final int NUMBER_OF_SERVERS = 50;
     public static final int MINIMUM_REPLICATIONS = 5;
-    /*
-    public static final int USERS_REQUESTS = 10;
-    public static final int MAXIMUN_REQUESTS_PER_USER = 3;
-    public static final int SEED = 1;
 
-    public static final int NUMBER_OF_SERVERS = 4;
-    public static final int MINIMUM_REPLICATIONS = 1;
-    */
+
     // SIMULATING ANNEALING Variables
-    public static final int STEPS = 1000000;
-    public static final int STITER = 100000;
-    public static final int K = 100000;
-    public static final int LAMB = 10;
+    public static final int STEPS = 1050000;
+    public static final int STITER = 100;
+    public static final int K = 8;
+    public static final double LAMB = 0.0001;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws FileNotFoundException {
+/*
+        // SIMULATING ANNEALING Variables
+        int STEPS = Integer.parseInt(args[0]);
+        int STITER = Integer.parseInt(args[1]);
+        int K = Integer.parseInt(args[2]);
+        double LAMB = Double.parseDouble(args[3]);
+
+        String outputFile = "output_"+STEPS+"_"+STITER+"_"+K+"_"+LAMB+".txt";
+        System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream(outputFile))));
+*/
         long tStart = System.currentTimeMillis();
-        Random rand = new Random(1234);
+        Random rand = new Random(SEED);
         try {
             Requests requestsDist = new Requests(USERS_REQUESTS, MAXIMUN_REQUESTS_PER_USER,SEED);
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
             Representation rep = new Representation(rand, NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState();
+            rep.generateInitialState2();
 
-            System.out.printf(rep.toString());
+            //System.out.printf(rep.toString());
 
-            Problem problem = new Problem(rep, new SuccessorFunctionSA(), new GoalTest(), new HeuristicFunctionOne());
+            Problem problem = new Problem(rep, new SuccessorFunctionSA(), new GoalTest(), new HeuristicFunctionOneBis());
 
             SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(STEPS, STITER, K, LAMB);
 
             SearchAgent agent = new SearchAgent(problem, search);
 
             printActions(agent.getActions());
-            printInstrumentation(agent.getInstrumentation());
+            //printInstrumentation(agent.getInstrumentation());
 
         } catch (Servers.WrongParametersException e) {
             e.printStackTrace();
@@ -65,7 +72,7 @@ public class MainSA {
 
         long tEnd = System.currentTimeMillis();
 
-        System.out.println("Elapsed time: " + (tEnd - tStart) + "ms.");
+        //System.out.println("Elapsed time: " + (tEnd - tStart) + "ms.");
 
     }
 

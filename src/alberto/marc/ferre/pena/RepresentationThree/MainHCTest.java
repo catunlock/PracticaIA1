@@ -11,19 +11,13 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
-public class MainHC {
-/*
-    public static final int USERS_REQUESTS = 10;
-    public static final int MAXIMUN_REQUESTS_PER_USER = 3;
-    public static final int SEED = 1;
-
-    public static final int NUMBER_OF_SERVERS = 4;
-    public static final int MINIMUM_REPLICATIONS = 1;
-*/
+/**
+ * Created by SuNLoCK on 09/04/2016.
+ */
+public class MainHCTest {
 
     public static final int USERS_REQUESTS = 200;
     public static final int MAXIMUN_REQUESTS_PER_USER = 5;
-    public static final int SEED = 1239;
 
     public static final int NUMBER_OF_SERVERS = 50;
     public static final int MINIMUM_REPLICATIONS = 5;
@@ -38,6 +32,16 @@ public class MainHC {
 
     }
 
+    private static int getNodesExpanded(Properties properties) {
+        Iterator keys = properties.keySet().iterator();
+        while (keys.hasNext()) {
+            String key = (String) keys.next();
+            String property = properties.getProperty(key);
+            return Integer.parseInt(property);
+        }
+        return -1;
+    }
+
     private static void printActions(List actions) {
         for (int i = 0; i < actions.size(); i++) {
             String action = (String) actions.get(i);
@@ -45,27 +49,31 @@ public class MainHC {
         }
     }
 
+    private static String getLastAction(List actions) {
+        return (String) actions.get(actions.size()-1);
+    }
+
     public static void main(String[] args)
     {
+        int SEED = Integer.parseInt(args[0]);
+
         long tStart = System.currentTimeMillis();
         Random rand = new Random(SEED);
+        SearchAgent agent = null;
         try {
             Requests requestsDist = new Requests(USERS_REQUESTS, MAXIMUN_REQUESTS_PER_USER,SEED);
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
             Representation rep = new Representation(rand, NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState();
+            rep.generateInitialState3();
 
-            System.out.printf(rep.toString());
+            //System.out.printf(rep.toString());
 
-            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionOneBis());
+            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionOne());
 
             HillClimbingSearch search = new HillClimbingSearch();
 
-            SearchAgent agent = new SearchAgent(problem, search);
-
-            printActions(agent.getActions());
-            printInstrumentation(agent.getInstrumentation());
+            agent = new SearchAgent(problem, search);
 
         } catch (Servers.WrongParametersException e) {
             e.printStackTrace();
@@ -73,9 +81,12 @@ public class MainHC {
             e.printStackTrace();
         }
 
+
         long tEnd = System.currentTimeMillis();
 
-        System.out.println("Elapsed time: " + (tEnd - tStart) + "ms.");
+        System.out.print(getLastAction(agent.getActions()) + ";");
+        System.out.print(getNodesExpanded(agent.getInstrumentation()) + ";");
+        System.out.println((tEnd - tStart));
 
     }
 }

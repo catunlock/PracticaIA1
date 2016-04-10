@@ -36,11 +36,15 @@ public class SuccessorFunctionSA implements aima.search.framework.SuccessorFunct
             sDest = (sDest+1) % rep.nservers;
         }
 
-        if (sDest != rep.requests.get(r) && rep.canMove(r, sDest)) {
+        if (sDest != rep.requests.get(r)) {
             Representation newRep = new Representation(rep);
             newRep.move(r, sDest);
 
-            Successor successor = new Successor(newRep.toString(), newRep);
+            //String paso = newRep.toString();
+            String paso = String.valueOf(newRep.totalTransmissionTime);
+            //System.out.println(newRep.totalTransmissionTime);
+
+            Successor successor = new Successor(newRep.toString() , newRep);
             successors.add(successor);
         }
 

@@ -3,8 +3,6 @@
     <output-path>$PROJECT_DIR$/out/artifacts/PracticaIA1_jar</output-path>
     <root id="archive" name="PracticaIA1.jar">
       <element id="module-output" name="PracticaIA1" />
-      <element id="extracted-dir" path="$USER_HOME$/Downloads/org-jdesktop-layout.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Downloads/swing-layout-1.0.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/servlet.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/junit-4.11.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/jfreesvg-2.0.jar" path-in-jar="/" />
@@ -16,7 +14,9 @@
       <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/jfreechart-1.0.19-swt.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/orsoncharts-1.4-eval-nofx.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Downloads/jfreechart-1.0.19/lib/jfreechart-1.0.19-experimental.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Downloads/dist/DistribFileSystem.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/org-jdesktop-layout.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/DistribFileSystem.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/swing-layout-1.0.4.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

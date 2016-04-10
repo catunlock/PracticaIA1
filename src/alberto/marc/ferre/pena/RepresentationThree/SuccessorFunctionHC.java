@@ -28,9 +28,12 @@ public class SuccessorFunctionHC implements aima.search.framework.SuccessorFunct
 
             for (int sDest : serversIds)
             {
-                if (sDest != rep.requests.get(r) && rep.canMove(r, sDest)) {
+                if (sDest != rep.requests.get(r)) {
                     Representation newRep = new Representation(rep);
                     newRep.move(r, sDest);
+
+                    //String paso = newRep.toString();
+                    String paso = String.valueOf(newRep.totalTransmissionTime);
 
                     Successor successor = new Successor(newRep.toString(), newRep);
                     successors.add(successor);

@@ -29,5 +29,6 @@
     <orderEntry type="library" name="org-jdesktop-layout" level="project" />
     <orderEntry type="library" name="swing-layout-1.0.4" level="project" />
     <orderEntry type="library" name="DistribFileSystem" level="project" />
+    <orderEntry type="library" name="jfreechart-1.0.19" level="project" />
   </component>
 </module>

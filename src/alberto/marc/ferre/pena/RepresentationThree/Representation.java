@@ -25,11 +25,12 @@ public class Representation {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
+/*
         for (int i = 0; i < serverLoad.size(); ++i) {
             sb.append("SERVER " + i + ": " + serverLoad.get(i) + "ms\n");
         }
-
-        sb.append("\n Sum of transmission time: " + totalTransmissionTime);
+*/
+        sb.append(totalTransmissionTime);
         return sb.toString();
     }
 
@@ -135,13 +136,6 @@ public class Representation {
         System.out.println("Increment " + serverId + " in " + ping);
 
         serverLoad.set(serverId, previousLoad + ping);
-    }
-
-    public boolean canMove(int request, int servDest) {
-        int[] req = requestsDist.getRequest(request);
-        int fileId = req[1];
-
-        return serversDist.fileLocations(fileId).contains(servDest);
     }
 
     public void move(int request, int servDest) {
