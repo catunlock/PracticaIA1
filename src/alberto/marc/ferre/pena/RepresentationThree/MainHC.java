@@ -11,22 +11,29 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 public class MainHC {
-/*
-    public static final int USERS_REQUESTS = 10;
-    public static final int MAXIMUN_REQUESTS_PER_USER = 3;
-    public static final int SEED = 1;
 
-    public static final int NUMBER_OF_SERVERS = 4;
-    public static final int MINIMUM_REPLICATIONS = 1;
-*/
+    public static Random rand = new Random();
 
-    public static final int USERS_REQUESTS = 200;
-    public static final int MAXIMUN_REQUESTS_PER_USER = 5;
-    public static final int SEED = 1234;
+    public static int USERS_REQUESTS;
+    public static int MAXIMUN_REQUESTS_PER_USER;
+    public static int NUMBER_OF_SERVERS;
+    public static int MINIMUM_REPLICATIONS;
 
-    public static final int NUMBER_OF_SERVERS = 50;
-    public static final int MINIMUM_REPLICATIONS = 5;
+    private static void generateValors() {
+        USERS_REQUESTS = rand.nextInt(500);
+        MAXIMUN_REQUESTS_PER_USER = rand.nextInt(15);
+        NUMBER_OF_SERVERS = rand.nextInt(200);
+        MINIMUM_REPLICATIONS = rand.nextInt(max(1,NUMBER_OF_SERVERS/2));
+
+        System.out.println("Users Requests: " + USERS_REQUESTS);
+        System.out.println("Maximum Requests per user: " + MAXIMUN_REQUESTS_PER_USER);
+        System.out.println("Number of Servers: " + NUMBER_OF_SERVERS);
+        System.out.println("Minimum replications: " + MINIMUM_REPLICATIONS);
+    }
 
     private static void printInstrumentation(Properties properties) {
         Iterator keys = properties.keySet().iterator();
@@ -39,29 +46,40 @@ public class MainHC {
     }
 
     private static void printActions(List actions) {
-        /*
+        System.out.println("Camino hacia la solucion: ");
         for (int i = 0; i < actions.size(); i++) {
             String action = (String) actions.get(i);
             System.out.println(action);
         }
-        */
-        System.out.println((String)actions.get(actions.size()-1));
+
+        //System.out.println((String)actions.get(actions.size()-1));
     }
 
     public static void main(String[] args)
     {
+        if (args.length == 0 || (args[0] == "1" || args[0] == "2")) {
+            System.out.println("Has d'indicar amb un numero quina aproximacio vols fer servir (1 o 2)");
+            System.exit(1);
+        }
+
+        generateValors();
         long tStart = System.currentTimeMillis();
-        Random rand = new Random(SEED);
+
         try {
-            Requests requestsDist = new Requests(USERS_REQUESTS, MAXIMUN_REQUESTS_PER_USER,SEED);
-            Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
+            Requests requestsDist = new Requests(USERS_REQUESTS, MAXIMUN_REQUESTS_PER_USER,rand.nextInt());
+            Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, rand.nextInt());
 
             Representation rep = new Representation(rand, NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState3();
+            rep.generateInitialState2();
 
-            System.out.printf(rep.toString());
+            System.out.println("Initial Total Transmision Time: " + rep.toString() + "ms");
 
-            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionTwo());
+            Problem problem;
+            if (args[0] == "1") {
+                problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionOneBis());
+            }else {
+                problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionTwo());
+            }
 
             HillClimbingSearch search = new HillClimbingSearch();
 

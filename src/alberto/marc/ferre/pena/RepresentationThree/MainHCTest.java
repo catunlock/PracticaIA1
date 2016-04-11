@@ -69,7 +69,7 @@ public class MainHCTest {
 
             //System.out.printf(rep.toString());
 
-            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionOne());
+            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionOneBis());
 
             HillClimbingSearch search = new HillClimbingSearch();
 
