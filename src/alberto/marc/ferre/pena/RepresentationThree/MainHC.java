@@ -23,7 +23,7 @@ public class MainHC {
 
     public static final int USERS_REQUESTS = 200;
     public static final int MAXIMUN_REQUESTS_PER_USER = 5;
-    public static final int SEED = 1239;
+    public static final int SEED = 1234;
 
     public static final int NUMBER_OF_SERVERS = 50;
     public static final int MINIMUM_REPLICATIONS = 5;
@@ -39,10 +39,13 @@ public class MainHC {
     }
 
     private static void printActions(List actions) {
+        /*
         for (int i = 0; i < actions.size(); i++) {
             String action = (String) actions.get(i);
             System.out.println(action);
         }
+        */
+        System.out.println((String)actions.get(actions.size()-1));
     }
 
     public static void main(String[] args)
@@ -54,11 +57,11 @@ public class MainHC {
             Servers serversDist = new Servers(NUMBER_OF_SERVERS, MINIMUM_REPLICATIONS, SEED);
 
             Representation rep = new Representation(rand, NUMBER_OF_SERVERS, requestsDist, serversDist);
-            rep.generateInitialState();
+            rep.generateInitialState3();
 
             System.out.printf(rep.toString());
 
-            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionOneBis());
+            Problem problem = new Problem(rep, new SuccessorFunctionHC(), new GoalTest(), new HeuristicFunctionTwo());
 
             HillClimbingSearch search = new HillClimbingSearch();
 

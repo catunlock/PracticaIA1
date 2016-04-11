@@ -27,7 +27,6 @@ public class MainSA {
     public static final int MINIMUM_REPLICATIONS = 5;
 
 
-    // SIMULATING ANNEALING Variables
     public static final int STEPS = 1050000;
     public static final int STITER = 100;
     public static final int K = 8;
@@ -55,7 +54,7 @@ public class MainSA {
 
             //System.out.printf(rep.toString());
 
-            Problem problem = new Problem(rep, new SuccessorFunctionSA(), new GoalTest(), new HeuristicFunctionOneBis());
+            Problem problem = new Problem(rep, new SuccessorFunctionSA(), new GoalTest(), new HeuristicFunctionTwo());
 
             SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(STEPS, STITER, K, LAMB);
 
